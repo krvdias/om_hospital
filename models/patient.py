@@ -11,3 +11,8 @@ class HospitalPatient(models.Model):
 
     tag_ids = fields.Many2many('patient.tag', string="Tags")
     product_ids = fields.Many2many('product.product', string="Products")
+
+    def unlink(self):
+        #we can perform anything here
+        print("super method is executed")
+        return super().unlink()

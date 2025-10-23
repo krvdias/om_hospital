@@ -8,7 +8,7 @@ class HospitalAppointment(models.Model):
     _rec_name = 'patient_id'
 
     reference = fields.Char(string="Reference", default="New")
-    patient_id = fields.Many2one('hospital.patient', stirng="Patient")
+    patient_id = fields.Many2one('hospital.patient', stirng="Patient", on_delete="cascade") #on_delete="cascade" use for enable cascade, on_delete="restrict" use for restrict the delete
     date_of_birth = fields.Date(related='patient_id.date_of_birth')
     appointment_line_ids = fields.One2many('hospital.appointment.line', 'appointment_id', string='Lines')
     date_appointment = fields.Date(string="Date")
