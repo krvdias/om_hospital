@@ -8,6 +8,7 @@ class HospitalAppointment(models.Model):
 
     reference = fields.Char(string="Reference", default="New")
     patient_id = fields.Many2one('hospital.patient', stirng="Patient")
+    appointment_line_ids = fields.One2many('hospital.appointment.line', 'appointment_id', string='Lines')
     date_appointment = fields.Date(string="Date")
     note = fields.Text(string="Note")
     state = fields.Selection(
