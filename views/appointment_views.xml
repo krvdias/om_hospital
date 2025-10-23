@@ -32,7 +32,7 @@
                             <field name="date_appointment"/>
                         </group>
                         <group>
-                            <field name="note"/>
+                            <field name="total_qty"/>
                         </group>
                     </group>
                     <notebook>
@@ -43,6 +43,11 @@
                                     <field name="qty"/>
                                 </tree>
                             </field>
+                        </page>
+                        <page name="appointment_note" string="Notes">
+                            <group>
+                                <field name="note"/>
+                            </group>
                         </page>
                     </notebook>
                 </sheet>
