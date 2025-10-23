@@ -10,4 +10,4 @@ class HospitalPatient(models.Model):
     gender = fields.Selection([('male', 'Male'), ('female', 'Female')], string="Gender", tracking=True)
 
     tag_ids = fields.Many2many('patient.tag', string="Tags")
-    product_ids = fields.Many2many('product.product', string='Products')
+    product_ids = fields.Many2many('product.product', string="Products")
