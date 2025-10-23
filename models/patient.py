@@ -1,4 +1,5 @@
-from odoo import api, fields, models
+from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError
 
 class HospitalPatient(models.Model):
     _name = 'hospital.patient'
@@ -13,6 +14,9 @@ class HospitalPatient(models.Model):
     product_ids = fields.Many2many('product.product', string="Products")
 
     def unlink(self):
-        #we can perform anything here
-        print("super method is executed")
-        return super().unlink()
+        for rec in self:
+            domain = [('patient_id', '=', rec.id)]
+            appointments = self.env['hospital.appointment'].search(domain)
+            if appointments:
+                raise ValidationError(_("You can' delete the patient now." "\nAppointments existing for this patient:  %s" % rec.name))
+        return super().unlink() #if patient has assigned appointments restrict and show error for user
