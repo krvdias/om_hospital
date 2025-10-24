@@ -34,7 +34,7 @@
                         </group>
                         <group>
                             <field name="total_qty"/>
-                            <field name="create_uid"/>
+                            <field name="create_uid" groups="om_hospital.group_hospital_doctor"/>
                         </group>
                     </group>
                     <notebook>
