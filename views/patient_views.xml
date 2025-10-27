@@ -22,9 +22,12 @@
                         <group>
                             <field name="name"/>
                             <field name="date_of_birth"/>
+                            <field name="is_minor"/>
+                            <field name="guardian" invisible="not is_minor" required="is_minor"/> #invisible="True" field not show , readonly="True" field not editable and required="True" must have value to save
                         </group>
                         <group>
                             <field name="gender"/>
+                            <field name="weight" readonly="gender == 'female'"/>
                             <field name="tag_ids" widget="many2many_tags"/>
                             <field name="product_ids" widget="many2many_tags"/>
                         </group>

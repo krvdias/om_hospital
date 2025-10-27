@@ -13,6 +13,10 @@ class HospitalPatient(models.Model):
     tag_ids = fields.Many2many('patient.tag', string="Tags")
     product_ids = fields.Many2many('product.product', string="Products")
 
+    is_minor = fields.Boolean(string='Minor')
+    guardian = fields.Char(string='Guardian')
+    weight = fields.Float(string='Weight')
+
     # def unlink(self):
     #     for rec in self:
     #         domain = [('patient_id', '=', rec.id)]
