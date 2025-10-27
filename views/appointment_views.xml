@@ -28,13 +28,30 @@
                     <group>
                         <group>
                             <field name="patient_id"/>
+                            <field name="date_of_birth"/>
                             <field name="reference" readonly="True"/>
                             <field name="date_appointment"/>
                         </group>
                         <group>
-                            <field name="note"/>
+                            <field name="total_qty"/>
+                            <field name="create_uid" groups="om_hospital.group_hospital_doctor"/>
                         </group>
                     </group>
+                    <notebook>
+                        <page name="appointment_line" string="Lines">
+                            <field name="appointment_line_ids">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="qty"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="appointment_note" string="Notes">
+                            <group>
+                                <field name="note"/>
+                            </group>
+                        </page>
+                    </notebook>
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids" groups="base.group_user"/>
@@ -44,10 +61,29 @@
         </field>
     </record>
 
+     <record id="view_hospital_appointment_search" model="ir.ui.view">
+        <field name="name">hospital.appointment.search</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <search string="Appointments">
+                <field name="reference" filter_domain="['|', ('reference', 'like', self), ('patient_id', 'like', self)" string="Joined Filter"/>
+                <field name="reference"/>
+                <field name="patient_id"/>
+                <group expand="1" string="Group By">
+                    <filter name="group_by_patient" string="Patient" context="{'group_by': 'patient_id'}"/>
+                </group>
+                <searchpanel>
+                    <field name="patient_id" string="Patient" enable_counters="1"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
     <record id="action_hospital_appointment" model="ir.actions.act_window">
         <field name="name">Appointments</field>
         <field name="res_model">hospital.appointment</field>
         <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_hospital_appointment_search"/>
         <field name="help" type="html">
             <p class="o_view_noncontent_smiling_face">
                 create a new appointment
