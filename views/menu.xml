@@ -5,6 +5,10 @@
     <menuitem id="menu_patient" name="Patient" parent="menu_frontdesk" action="action_hospital_patient"/>
 <!--    <menuitem id="menu_patient_readonly" name="View Patient" parent="menu_frontdesk" action="action_hospital_readonly_patient"/>-->
 
+    <menuitem id="menu_billing" name="Billing" parent="menu_hospital_root"/>
+    <menuitem id="menu_hms_invoice" name="Invoice" action="account.action_move_out_invoice_type" parent="menu_billing"/>
+    <menuitem id="menu_hms_payment" name="Payment" action="account.action_move_out_invoice_type" parent="menu_billing"/>
+
     <menuitem id="menu_appointment" name="Appointment" parent="menu_frontdesk" action="action_hospital_appointment"/>
     <menuitem id="menu_appointment_line" name="Appointment Lines" parent="menu_frontdesk" action="action_hospital_appointment_line"/>
 

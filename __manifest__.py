@@ -12,11 +12,13 @@
         "views/appointment_views.xml",
         "views/appointment_line_views.xml",
         "views/patient_tag_views.xml",
+        "views/account_move_views.xml",
         "views/menu.xml",
     ],
     'installable': True,
     "depends": [
         'mail',
-        'product'
+        'product',
+        'account'
     ]
 }
