@@ -5,6 +5,9 @@
         <field name="model">hospital.appointment</field>
         <field name="arch" type="xml">
             <tree string="Appointments">
+                <header>
+                    <button name="action_export_excel" string="Export Excel" type="object" class="oe_highlight"/>
+                </header>
                 <field name="patient_id"/>
                 <field name="reference"/>
                 <field name="date_appointment" optional="hide"/>
@@ -72,9 +75,9 @@
                 <group expand="1" string="Group By">
                     <filter name="group_by_patient" string="Patient" context="{'group_by': 'patient_id'}"/>
                 </group>
-                <searchpanel>
-                    <field name="patient_id" string="Patient" enable_counters="1"/>
-                </searchpanel>
+<!--                <searchpanel>-->
+<!--                    <field name="patient_id" string="Patient" enable_counters="1"/>-->
+<!--                </searchpanel>-->
             </search>
         </field>
     </record>

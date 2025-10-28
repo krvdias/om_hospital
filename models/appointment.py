@@ -1,4 +1,7 @@
 from odoo import api, fields, models
+import base64
+from io import BytesIO
+from openpyxl import Workbook
 
 class HospitalAppointment(models.Model):
     _name = 'hospital.appointment'
@@ -58,3 +61,38 @@ class HospitalAppointment(models.Model):
     def action_cancel(self):
         for rec in self:
             rec.state = 'cancel'
+
+    def action_export_excel(self):
+        appointments = self or self.env['hospital.appointment'].search([])
+
+        wb = Workbook()
+        ws = wb.active
+        ws.title = 'Appointments'
+
+        headers = ['Reference', 'Patient', 'Data']
+        ws.append(headers)
+
+        for rec in appointments:
+            ws.append([
+                rec.reference or '',
+                rec.patient_id.name or '',
+                str(rec.date_appointment or ''),
+            ])
+
+        stream = BytesIO()
+        wb.save(stream)
+        stream.seek(0)
+        data = base64.b64encode(stream.read())
+
+        export_file = self.env['ir.attachment'].create({
+            'name': 'appointments.xlsx',
+            'type': 'binary',
+            'datas': data,
+            'mimetype': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        })
+
+        return {
+            'type': 'ir.actions.act_url',
+            'url': f"/web/content/{export_file.id}?download=true",
+            'target': 'new',
+        }
